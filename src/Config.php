@@ -22,6 +22,9 @@ namespace Fusible\AuthProvider;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfig;
 
+use Aura\Auth\AuthFactory as Factory;
+use Aura\Auth\Adapter\NullAdapter;
+
 /**
  * Config
  *
@@ -73,17 +76,17 @@ class Config extends ContainerConfig
             $di->values['cookie'] = $this->cookie;
         }
 
-        $di->params['Aura\Auth\AuthFactory']['cookie'] = $di->lazyValue('cookie');
+        $di->params[Factory::class]['cookie'] = $di->lazyValue('cookie');
 
         $di->set(
             'aura/auth:factory',
-            $di->lazyNew('Aura\Auth\AuthFactory')
+            $di->lazyNew(Factory::class)
         );
 
         if (! $di->has('aura/auth:adapter')) {
             $di->set(
                 'aura/auth:adapter',
-                $di->lazyNew('Aura\Auth\Adapter\NullAdapter')
+                $di->lazyNew(NullAdapter::class)
             );
         }
 
