@@ -1,0 +1,30 @@
+{
+    "name": "fusible/auth-provider",
+    "description": "Aura\\Auth provider for Aura\\Di",
+    "homepage":"https://github.com/fusible/fusible.auth-provider",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jake johns",
+            "email": "jake@jakejohns.net"
+        }
+    ],
+    "require": {
+        "aura/di": "~3.0",
+        "aura/auth": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fusible\\AuthProvider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fusible\\AuthProvider\\":"tests/",
+            "Aura\\Di\\": "vendor/aura/di/tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
