@@ -38,6 +38,18 @@ use Aura\Auth\Adapter\NullAdapter;
  */
 class Config extends ContainerConfig
 {
+    const COOKIE = 'cookie';
+
+    const FACTORY = 'aura/auth:factory';
+    const ADAPTER = 'aura/auth:adapter';
+
+    const AUTH   = 'aura/auth:auth';
+
+    const LOGIN  = 'aura/auth:login';
+    const LOGOUT = 'aura/auth:logout';
+    const RESUME = 'aura/auth:resume';
+
+
     /**
      * Cookie
      *
@@ -72,53 +84,53 @@ class Config extends ContainerConfig
      */
     public function define(Container $di)
     {
-        if (! isset($di->values['cookie'])) {
-            $di->values['cookie'] = $this->cookie;
+        if (! isset($di->values[static::COOKIE])) {
+            $di->values[static::COOKIE] = $this->cookie;
         }
 
-        $di->params[Factory::class]['cookie'] = $di->lazyValue('cookie');
+        $di->params[Factory::class]['cookie'] = $di->lazyValue(static::COOKIE);
 
         $di->set(
-            'aura/auth:factory',
+            static::FACTORY,
             $di->lazyNew(Factory::class)
         );
 
-        if (! $di->has('aura/auth:adapter')) {
+        if (! $di->has(static::ADAPTER)) {
             $di->set(
-                'aura/auth:adapter',
+                static::ADAPTER,
                 $di->lazyNew(NullAdapter::class)
             );
         }
 
         $di->set(
-            'aura/auth:auth',
-            $di->lazyGetCall('aura/auth:factory', 'newInstance')
+            static::AUTH,
+            $di->lazyGetCall(static::FACTORY, 'newInstance')
         );
 
         $di->set(
-            'aura/auth:login',
+            static::LOGIN,
             $di->lazyGetCall(
-                'aura/auth:factory',
+                static::FACTORY,
                 'newLoginService',
-                $di->lazyGet('aura/auth:adapter')
+                $di->lazyGet(static::ADAPTER)
             )
         );
 
         $di->set(
-            'aura/auth:logout',
+            static::LOGOUT,
             $di->lazyGetCall(
-                'aura/auth:factory',
+                static::FACTORY,
                 'newLogoutService',
-                $di->lazyGet('aura/auth:adapter')
+                $di->lazyGet(static::ADAPTER)
             )
         );
 
         $di->set(
-            'aura/auth:resume',
+            static::RESUME,
             $di->lazyGetCall(
-                'aura/auth:factory',
+                static::FACTORY,
                 'newResumeService',
-                $di->lazyGet('aura/auth:adapter')
+                $di->lazyGet(static::ADAPTER)
             )
         );
     }
