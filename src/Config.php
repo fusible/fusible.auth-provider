@@ -22,7 +22,7 @@ namespace Fusible\AuthProvider;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfig;
 
-use Aura\Auth\AuthFactory as Factory;
+use Aura\Auth;
 use Aura\Auth\Adapter\NullAdapter;
 
 /**
@@ -38,18 +38,6 @@ use Aura\Auth\Adapter\NullAdapter;
  */
 class Config extends ContainerConfig
 {
-    const COOKIE = 'cookie';
-
-    const FACTORY = 'aura/auth:factory';
-    const ADAPTER = 'aura/auth:adapter';
-
-    const AUTH   = 'aura/auth:auth';
-
-    const LOGIN  = 'aura/auth:login';
-    const LOGOUT = 'aura/auth:logout';
-    const RESUME = 'aura/auth:resume';
-
-
     /**
      * Cookie
      *
@@ -84,53 +72,53 @@ class Config extends ContainerConfig
      */
     public function define(Container $di)
     {
-        if (! isset($di->values[static::COOKIE])) {
-            $di->values[static::COOKIE] = $this->cookie;
+        if (! isset($di->values['_COOKIE'])) {
+            $di->values['_COOKIE'] = $this->cookie;
         }
 
-        $di->params[Factory::class]['cookie'] = $di->lazyValue(static::COOKIE);
+        $di->params[Auth\AuthFactory::class]['cookie'] = $di->lazyValue('_COOKIE');
 
         $di->set(
-            static::FACTORY,
-            $di->lazyNew(Factory::class)
+            Auth\AuthFactory::class,
+            $di->lazyNew(Auth\AuthFactory::class)
         );
 
-        if (! $di->has(static::ADAPTER)) {
+        if (! $di->has(Auth\Adapter::class)) {
             $di->set(
-                static::ADAPTER,
-                $di->lazyNew(NullAdapter::class)
+                Auth\Adapter::class,
+                $di->lazyNew(Auth\Adapter\NullAdapter::class)
             );
         }
 
         $di->set(
-            static::AUTH,
-            $di->lazyGetCall(static::FACTORY, 'newInstance')
+            Auth\Auth::class,
+            $di->lazyGetCall(Auth\AuthFactory::class, 'newInstance')
         );
 
         $di->set(
-            static::LOGIN,
+            Auth\Service\LoginService::class,
             $di->lazyGetCall(
-                static::FACTORY,
+                Auth\AuthFactory::class,
                 'newLoginService',
-                $di->lazyGet(static::ADAPTER)
+                $di->lazyGet(Auth\Adapter::class)
             )
         );
 
         $di->set(
-            static::LOGOUT,
+            Auth\Service\LogoutService::class,
             $di->lazyGetCall(
-                static::FACTORY,
+                Auth\AuthFactory::class,
                 'newLogoutService',
-                $di->lazyGet(static::ADAPTER)
+                $di->lazyGet(Auth\Adapter::class)
             )
         );
 
         $di->set(
-            static::RESUME,
+            Auth\Service\ResumeService::class,
             $di->lazyGetCall(
-                static::FACTORY,
+                Auth\AuthFactory::class,
                 'newResumeService',
-                $di->lazyGet(static::ADAPTER)
+                $di->lazyGet(Auth\Adapter::class)
             )
         );
     }

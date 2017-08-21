@@ -4,6 +4,7 @@
 namespace Fusible\AuthProvider;
 
 use Aura\Di\AbstractContainerConfigTest;
+use Aura\Auth;
 
 class ConfigTest extends AbstractContainerConfigTest
 {
@@ -16,26 +17,26 @@ class ConfigTest extends AbstractContainerConfigTest
     protected function getConfigClasses()
     {
         return [
-            'Fusible\AuthProvider\Config'
+            Config::class
         ];
     }
 
     public function provideGet()
     {
         return [
-            [ 'aura/auth:factory', 'Aura\Auth\AuthFactory' ],
-            [ 'aura/auth:adapter', 'Aura\Auth\Adapter\NullAdapter' ],
-            [ 'aura/auth:auth', 'Aura\Auth\Auth' ],
-            [ 'aura/auth:login', 'Aura\Auth\Service\LoginService' ],
-            [ 'aura/auth:logout', 'Aura\Auth\Service\LogoutService'],
-            [ 'aura/auth:resume', 'Aura\Auth\Service\ResumeService']
+            [ Auth\AuthFactory::class, Auth\AuthFactory::class],
+            [ Auth\Adapter::class, Auth\Adapter\NullAdapter::class ],
+            [ Auth\Auth::class, Auth\Auth::class ],
+            [ Auth\Service\LoginService::class, Auth\Service\LoginService::class ],
+            [ Auth\Service\LogoutService::class, Auth\Service\LogoutService::class],
+            [ Auth\Service\ResumeService::class, Auth\Service\ResumeService::class]
         ];
     }
 
     public function provideNewInstance()
     {
         return [
-            ['Aura\Auth\AuthFactory']
+            [Auth\AuthFactory::class]
         ];
     }
 
