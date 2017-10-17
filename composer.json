@@ -26,5 +26,9 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "phpstan/phpstan": "^0.8.5",
+        "pds/skeleton": "^1.0"
+    }
 }
