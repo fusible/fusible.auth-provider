@@ -25,7 +25,7 @@ class ConfigTest extends AbstractContainerConfigTest
     {
         return [
             [ Auth\AuthFactory::class, Auth\AuthFactory::class],
-            [ Auth\Adapter::class, Auth\Adapter\NullAdapter::class ],
+            [ Config::AUTH_ADAPTER, Auth\Adapter\NullAdapter::class ],
             [ Auth\Auth::class, Auth\Auth::class ],
             [ Auth\Service\LoginService::class, Auth\Service\LoginService::class ],
             [ Auth\Service\LogoutService::class, Auth\Service\LogoutService::class],

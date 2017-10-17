@@ -23,7 +23,6 @@ use Aura\Di\Container;
 use Aura\Di\ContainerConfig;
 
 use Aura\Auth;
-use Aura\Auth\Adapter\NullAdapter;
 
 /**
  * Config
@@ -38,6 +37,8 @@ use Aura\Auth\Adapter\NullAdapter;
  */
 class Config extends ContainerConfig
 {
+    const AUTH_ADAPTER = self::class . '::AUTH_ADAPTER';
+
     /**
      * Cookie
      *
@@ -83,9 +84,9 @@ class Config extends ContainerConfig
             $di->lazyNew(Auth\AuthFactory::class)
         );
 
-        if (! $di->has(Auth\Adapter::class)) {
+        if (! $di->has(self::AUTH_ADAPTER)) {
             $di->set(
-                Auth\Adapter::class,
+                self::AUTH_ADAPTER,
                 $di->lazyNew(Auth\Adapter\NullAdapter::class)
             );
         }
@@ -100,7 +101,7 @@ class Config extends ContainerConfig
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newLoginService',
-                $di->lazyGet(Auth\Adapter::class)
+                $di->lazyGet(self::AUTH_ADAPTER)
             )
         );
 
@@ -109,7 +110,7 @@ class Config extends ContainerConfig
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newLogoutService',
-                $di->lazyGet(Auth\Adapter::class)
+                $di->lazyGet(self::AUTH_ADAPTER)
             )
         );
 
@@ -118,7 +119,7 @@ class Config extends ContainerConfig
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newResumeService',
-                $di->lazyGet(Auth\Adapter::class)
+                $di->lazyGet(self::AUTH_ADAPTER)
             )
         );
     }
