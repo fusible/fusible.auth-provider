@@ -38,6 +38,11 @@ use Aura\Auth;
 class Config extends ContainerConfig
 {
     const AUTH_ADAPTER = self::class . '::AUTH_ADAPTER';
+    const FACTORY      = Auth\AuthFactory::class;
+    const AUTH         = Auth\Auth::class;
+    const LOGIN        = Auth\Service\LoginService::class;
+    const LOGOUT       = Auth\Service\LoginService::class;
+    const RESUME       = Auth\Service\ResumeService::class;
 
     /**
      * Cookie
@@ -80,7 +85,7 @@ class Config extends ContainerConfig
         $di->params[Auth\AuthFactory::class]['cookie'] = $di->lazyValue('_COOKIE');
 
         $di->set(
-            Auth\AuthFactory::class,
+            self::FACTORY,
             $di->lazyNew(Auth\AuthFactory::class)
         );
 
@@ -92,12 +97,12 @@ class Config extends ContainerConfig
         }
 
         $di->set(
-            Auth\Auth::class,
+            self::AUTH,
             $di->lazyGetCall(Auth\AuthFactory::class, 'newInstance')
         );
 
         $di->set(
-            Auth\Service\LoginService::class,
+            self::LOGIN,
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newLoginService',
@@ -106,7 +111,7 @@ class Config extends ContainerConfig
         );
 
         $di->set(
-            Auth\Service\LogoutService::class,
+            self::LOGOUT,
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newLogoutService',
@@ -115,7 +120,7 @@ class Config extends ContainerConfig
         );
 
         $di->set(
-            Auth\Service\ResumeService::class,
+            self::RESUME,
             $di->lazyGetCall(
                 Auth\AuthFactory::class,
                 'newResumeService',
