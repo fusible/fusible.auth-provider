@@ -41,7 +41,7 @@ class Config extends ContainerConfig
     const FACTORY      = Auth\AuthFactory::class;
     const AUTH         = Auth\Auth::class;
     const LOGIN        = Auth\Service\LoginService::class;
-    const LOGOUT       = Auth\Service\LoginService::class;
+    const LOGOUT       = Auth\Service\LogoutService::class;
     const RESUME       = Auth\Service\ResumeService::class;
 
     /**
