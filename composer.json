@@ -1,6 +1,6 @@
 {
     "name": "fusible/auth-provider",
-    "description": "Aura\\Auth provider for Aura\\Di",
+    "description": "Aura\\Auth service provider",
     "homepage":"https://github.com/fusible/fusible.auth-provider",
     "type": "library",
     "license": "MIT",
@@ -11,8 +11,9 @@
         }
     ],
     "require": {
-        "aura/di": "~3.0",
-        "aura/auth": "^2.0"
+        "php": ">=7.2.0",
+        "aura/auth": "^2.0",
+        "container-interop/service-provider": "^0.4.0"
     },
     "autoload": {
         "psr-4": {
@@ -28,7 +29,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "phpstan/phpstan": "^0.8.5",
-        "pds/skeleton": "^1.0"
+        "phpstan/phpstan": "^0.11",
+        "pds/skeleton": "^1.0",
+        "aura/di": "^3.4",
+        "phpunit/phpunit": "^8.1"
     }
 }
