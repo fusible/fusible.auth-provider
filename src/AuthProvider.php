@@ -2,9 +2,9 @@
 /**
  * Aura\Auth Provider for Aura\Di
  *
- * PHP version 5
+ * PHP version 7
  *
- * Copyright (C) 2016 Jake Johns
+ * Copyright (C) 2019 Jake Johns
  *
  * This software may be modified and distributed under the terms
  * of the MIT license.  See the LICENSE file for details.
@@ -12,8 +12,8 @@
  * @category  Config
  * @package   Fusible\AuthProvider
  * @author    Jake Johns <jake@jakejohns.net>
- * @copyright 2016 Jake Johns
- * @license   http://jnj.mit-license.org/2016 MIT License
+ * @copyright 2019 Jake Johns
+ * @license   http://jnj.mit-license.org/2019 MIT License
  * @link      https://github.com/fusible/fusible.auth-provider
  */
 
@@ -26,6 +26,7 @@ use Aura\Auth\AuthFactory;
 use Aura\Auth\Service\LoginService;
 use Aura\Auth\Service\LogoutService;
 use Aura\Auth\Service\ResumeService;
+use Interop\Container\ServiceProviderInterface;
 use PDO;
 use Psr\Container\ContainerInterface as Container;
 
@@ -38,7 +39,7 @@ use Psr\Container\ContainerInterface as Container;
  * @license  http://jnj.mit-license.org/2016 MIT License
  * @link     https://github.com/fusible/fusible.auth-provider
  */
-class AuthProvider
+class AuthProvider implements ServiceProviderInterface
 {
     /**
      * Auth Factory

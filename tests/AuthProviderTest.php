@@ -7,6 +7,7 @@ use Aura\Auth;
 use Aura\Auth\Adapter;
 use Aura\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
+use Interop\Container\ServiceProviderInterface;
 
 class AuthProviderTest extends TestCase
 {
@@ -50,6 +51,14 @@ class AuthProviderTest extends TestCase
         $this->assertInstanceOf(
             $expected,
             $this->container->get(Adapter\AdapterInterface::class)
+        );
+    }
+
+    public function testIsProvider()
+    {
+        $this->assertInstanceOf(
+            ServiceProviderInterface::class,
+            $this->provider
         );
     }
 
