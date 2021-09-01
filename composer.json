@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=8.0.0",
         "aura/auth": "^2.0",
         "container-interop/service-provider": "^0.4.0",
         "psr/container": "^1.0"
@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "pds/skeleton": "^1.0",
-        "aura/di": "^3.4",
+        "aura/di": "^4.0",
         "phpunit/phpunit": "^8.1"
     }
 }
